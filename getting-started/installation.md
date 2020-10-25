@@ -4,21 +4,15 @@ description: 'Follow these instructions to install, upgrade or uninstall KubeMod
 
 # Installation
 
-
-
 ## Install
 
-If you are upgrading from a previous version of KubeMod, run the following:
+As a Kubernetes operator, KubeMod is deployed into its own namespace — `kubemod-system`.
 
-Install KubeMod by running the following command against your Kubernetes cluster:
+The following command will create namespace `kubemod-system` and will deploy KubeMod into it.
 
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/kubemod/kubemod/v0.6.0/bundle.yaml
 ```
-
-{% hint style="info" %}
-The above command will create namespace `kubemod-system` and will deploy KubeMod's resources into it.
-{% endhint %}
 
 ## Upgrade
 

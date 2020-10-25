@@ -8,6 +8,20 @@ A ModRule is considered to have a match with the Kubernetes object definition wh
 
 A criteria item contains a required `select` expression and optional `matchValue`, `matchValues`, `matchRegex` and `negate` properties.
 
+For example, the following `match` section has two criteria items. The `ModRule`  matches all resources whose `kind` is equal to `Deployment` **and** have a container name that's either `container-1` or `container-2` .
+
+```yaml
+...
+  match:
+    - select: '$.kind'
+      matchValue: 'Deployment'
+
+    - select: '$.spec.template.spec.containers[*].name'
+      matchValues:
+        - container-1
+        - container-2
+```
+
 * `select` - a [JSONPath](https://goessner.net/articles/JsonPath/) expression which, when evaluated against the Kubernetes object definition, yields zero or more values.
 * `matchValue` - a string matched against the result of `select`.
 * `matchValues` - an array of strings matched against the result of `select`.

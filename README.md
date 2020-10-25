@@ -9,6 +9,3 @@ Use KubeMod to:
 * Customize opaque Helm charts and Kubernetes operators
 * Build a system of policy rules to reject misbehaving resources
 * Develop your own sidecar container injections - no coding required
-
-
-

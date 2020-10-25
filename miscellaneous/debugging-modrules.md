@@ -31,4 +31,3 @@ If your ModRule is a Patch rule, KubeMod operator will log the full JSON Patch a
 If there are any errors at the time the patch is calculated, you will see them in the logs.
 
 If the operator log is silent at the time you deploy the target object, this means that your ModRule's `match` criteria did not yield a positive match for the target object.
-

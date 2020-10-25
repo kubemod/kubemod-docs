@@ -12,6 +12,7 @@ spec:
   match:
 
   patch:
+  
 ```
 
 The `type` of a `ModRule` can be one of the following:

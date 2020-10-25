@@ -30,10 +30,11 @@ spec:
     # ... but with and no annotation sidecar.istio.io/inject.
     - select: '$.metadata.annotations["sidecar.istio.io/inject"]'
       negate: true
-    
+
   patch:
     # Add Istio annotation sidecar.istio.io/inject=false to exclude this deployment from Istio injection.
     - op: add
       path: /metadata/annotations/sidecar.istio.io~1inject
       value: '"false"'
 ```
+

@@ -18,3 +18,4 @@ Oftentimes these issues are showstoppers that render the chart/operator impossib
 With the help of KubeMod we can make those charts and operators work for us. Just deploy a cleverly developed `ModRule` which targets the problematic primitive resource and patch it on the fly at the time it is created.
 
 See the following sections for a number of typical use cases for KubeMod.
+

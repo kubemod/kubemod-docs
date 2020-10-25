@@ -29,3 +29,4 @@ spec:
     - op: remove
       path: /metadata/ownerReferences/0
 ```
+

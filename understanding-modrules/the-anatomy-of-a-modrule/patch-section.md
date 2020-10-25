@@ -11,3 +11,4 @@ In addition, when a patch is evaluated, KubeMod executes the patch `value` as a 
 
 * `.Target` - the original resource object being patched with all its properties.
 * `.Namespace` - the namespace of the resource object.
+

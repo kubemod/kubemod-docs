@@ -1,7 +1,5 @@
 # Modification of behavior
 
-
-
 Here's a typical black-box operator issue which can be fixed with KubeMod: [https://github.com/elastic/cloud-on-k8s/issues/2328](https://github.com/elastic/cloud-on-k8s/issues/2328).
 
 The issue is that when the [Elastic Search operator](https://github.com/elastic/cloud-on-k8s) creates Persistent Volume Claims, it attaches an `ownerReference` to them such that they are garbage-collected after the operator removes the Elastic Search stack of resources.
@@ -31,4 +29,3 @@ spec:
     - op: remove
       path: /metadata/ownerReferences/0
 ```
-

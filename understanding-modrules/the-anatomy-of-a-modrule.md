@@ -1,2 +1,2 @@
-# The Anatomy of a ModRule
+# The anatomy of a ModRule
 

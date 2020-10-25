@@ -52,8 +52,10 @@ spec:
           protocol: UDP
 ```
 
+{% hint style="info" %}
 Note the use of ``{{ .Target.metadata.name }}`` in the patch `value` to dynamically access the name of the deployment being patched and pass it to the Jaeger agent as a tracer tag.
 
 When a patch is evaluated, KubeMod executes the patch value as a [Golang template](https://golang.org/pkg/text/template/) and passes the following intrinsic items accessible through the template's context:
 * `.Target` - the original resource object being patched with all its properties.
 * `.Namespace` - the namespace of the resource object.
+{% endhint %}

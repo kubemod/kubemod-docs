@@ -8,7 +8,7 @@ This makes sense when we plan to dynamically scale Elastic Search up and down, b
 
 A solution to this issue would be the following ModRule which simply removes the `ownerReference` from PVCs created by the Elastic Search operator at the time they are deployed, thus excluding those resources from Kubernetes garbage collection:
 
-```text
+```yaml
 apiVersion: api.kubemod.io/v1beta1
 kind: ModRule
 metadata:

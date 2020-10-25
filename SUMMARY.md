@@ -10,5 +10,7 @@
 ## UNDERSTANDING MODRULES
 
 * [The anatomy of a ModRule](understanding-modrules/the-anatomy-of-a-modrule.md)
-* [Sample ModRules](understanding-modrules/sample-modrules.md)
+* [Common use cases](understanding-modrules/sample-modrules/README.md)
+  * [Modification of behavior](understanding-modrules/sample-modrules/modification-of-behavior.md)
+  * [Modification of metadata](understanding-modrules/sample-modrules/modification-of-metadata.md)
 

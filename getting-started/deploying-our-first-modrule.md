@@ -29,8 +29,8 @@ spec:
     # Note: "negate: true" flips the meaning of the match.
     - select: "$.spec.template.spec.securityContext.runAsNonRoot == true" 
       negate: true
-           
-    
+
+
   patch:
     # Add custom annotation.
     - op: add
@@ -55,7 +55,7 @@ kubectl apply -f my-modrule.yaml
 
 After the `ModRule` is created, the creation of any nginx Kubernetes `Deployment` resource in the same namespace will be intercepted by the KubeMod operator and if the `Deployment` resource matches all the queries in the ModRule's `match` section, the resource will be patched with the `patch` operations **before** it is actually deployed to Kubernetes.
 
-## List Deployed ModRules
+## List deployed ModRules
 
 To list all ModRules deployed to a namespace, run the following:
 

@@ -6,8 +6,7 @@ description: 'Follow these instructions to install, upgrade or uninstall KubeMod
 
 ## Install
 
-As a Kubernetes operator, KubeMod is deployed into its own namespace — `kubemod-system`.
-
+As a Kubernetes operator, KubeMod is deployed into its own namespace — `kubemod-system`.  
 The following command will create namespace `kubemod-system` and will deploy KubeMod into it.
 
 ```bash

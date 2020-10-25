@@ -25,9 +25,8 @@ spec:
     - select: '$.spec.template.spec.containers[*].image'
       matchRegex: 'nginx:1\.14\..*'
 
-    # ... but has no explicit runAsNonRoot security contex
-# ()
-    # (note the "negate: true" part):
+    # ... but has no explicit runAsNonRoot security contex.
+    # Note: "negate: true" flips the meaning of the match.
     - select: "$.spec.template.spec.securityContext.runAsNonRoot == true" 
       negate: true
            

@@ -10,7 +10,8 @@
 ## UNDERSTANDING MODRULES
 
 * [The anatomy of a ModRule](understanding-modrules/the-anatomy-of-a-modrule.md)
-* [Common use cases](understanding-modrules/sample-modrules/README.md)
-  * [Modification of behavior](understanding-modrules/sample-modrules/modification-of-behavior.md)
-  * [Modification of metadata](understanding-modrules/sample-modrules/modification-of-metadata.md)
-
+* [Common use cases](understanding-modrules/common-use-cases/README.md)
+  * [Modification of behavior](understanding-modrules/common-use-cases/modification-of-behavior.md)
+  * [Modification of metadata](understanding-modrules/common-use-cases/modification-of-metadata.md)
+  * [Sidecar injection](understanding-modrules/common-use-cases/sidecar-injection.md)
+  * [Resource rejection](understanding-modrules/common-use-cases/resource-rejection.md)

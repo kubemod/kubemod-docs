@@ -6,9 +6,12 @@ When a new object is deployed to Kubernetes, KubeMod intercepts the operation an
 
 A ModRule is considered to have a match with the Kubernetes object definition when all criteria items in its `match` section yield a positive match.
 
-A criteria item contains a required `select` expression and optional `matchValue`, `matchValues`, `matchRegex` and `negate` properties.
+## Criteria item
 
-For example, the following `match` section has two criteria items. The `ModRule`  matches all resources whose `kind` is equal to `Deployment` **and** have a container name that's either `container-1` or `container-2` .
+A criteria item contains a required `select` expression and optional `matchValue`, `matchValues`, `matchRegex` and `negate` fields.
+
+For example, the following `match` section has two criteria items.
+The `ModRule`  matches all resources whose `kind` is equal to `Deployment` **and** have a container name that's either `container-1` or `container-2` .
 
 ```yaml
 ...
@@ -18,14 +21,9 @@ For example, the following `match` section has two criteria items. The `ModRule`
 
     - select: '$.spec.template.spec.containers[*].name'
       matchValues:
-        - container-1
-        - container-2
+        - 'container-1'
+        - 'container-2'
 ```
-
-* `select` - a [JSONPath](https://goessner.net/articles/JsonPath/) expression which, when evaluated against the Kubernetes object definition, yields zero or more values.
-* `matchValue` - a string matched against the result of `select`.
-* `matchValues` - an array of strings matched against the result of `select`.
-* `matchRegex` - a regular expression matched against the result of `select`.
 
 A criteria item is considered positive when its `select` expression yields one or more values and one of the following is true:
 
@@ -36,3 +34,61 @@ A criteria item is considered positive when its `select` expression yields one o
 
 The result of a criteria item can be inverted by setting its `negate` to `true`.
 
+### Select expression
+
+The `select` field of a criteria item is a [JSONPath](https://goessner.net/articles/JsonPath/) expression.
+
+When a `select` expression is evaluated against a Kubernetes object definition, it yields zero or more values.
+
+Let's consider the following JSONPath select expression:
+
+```javascript
+$.spec.template.spec.containers[*].name
+```
+
+When this expression is evaluated against a `Deployment` resource definition whose specification includes three containers, the result of the evaluation will be a list of the names of those three containers.
+
+For the purpose of performing matches, KubeMod converts the result of every `select` expression to a list of strings, regardless of what the type of the target field is.
+
+Here's another example:
+
+```javascript
+$.spec.template.spec.containers[*].ports[*].containerPort
+```
+This expression will yield a list of all `containerPort` values for all ports and all containers. The values in the list will be the string representation of those port numbers.
+
+#### Filters
+
+KubeMod `select` expressions includes an extension to JSONPath — filters.
+
+A filter is an expression in the form of `[? <filter expression>]` and can be used in place of `[*]` to filter the elements of an array.
+
+For example,let's consider the following `select` expression:
+
+```javascript
+$.spec.template.spec.containers[*].ports[? @.containerPort == 8080]
+```
+
+ The expression `[? @.containerPort == 8080]` filters the result of the `select` to include only containers that include a port with `containerPort` equal to 8080.
+
+The filter expression could be any JavaScript boolean expression. The special character `@` represents the current object the filter is iterating over. In the above filter expression, that is the `port` object.
+
+### Field `matchValue`
+
+The `matchValue` field is a string matched against the results of `select`. If any of the items returned by `select` match `matchValue`, the match criteria is considered a positive match.
+
+The match performed by `matchValue` is case sensitive. If you need case insensitive matches, use `matchRegex`.
+
+### Field `matchValues`
+
+Field `matchValues` is an array of match values which are tested against the results of `select`. If any of the items returned by `select` match any of the `matchValues` items, the match criteria is considered a positive match.
+
+This match is case sensitive. If you need case insensitive matches, use `matchRegex`.
+
+### Field `matchRegex`
+
+Field `matchRegex` is a regular expression matched against the results of `select`. If any of the items returned by `select` match `matchRegex`, the match criteria is considered a positive match.
+
+### Field `negate`
+
+`negate` is a boolean field which can be used to flip the outcome of the criteria item match. Its default value is `false`.

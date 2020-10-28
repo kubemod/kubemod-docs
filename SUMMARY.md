@@ -10,7 +10,6 @@
 ## UNDERSTANDING MODRULES
 
 * [The anatomy of a ModRule](understanding-modrules/the-anatomy-of-a-modrule/README.md)
-  * [Basic structure](understanding-modrules/the-anatomy-of-a-modrule/basic-structure.md)
   * [Match section](understanding-modrules/the-anatomy-of-a-modrule/match-section.md)
   * [Patch section](understanding-modrules/the-anatomy-of-a-modrule/patch-section.md)
 * [Common use cases](understanding-modrules/common-use-cases/README.md)

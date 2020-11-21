@@ -1,6 +1,6 @@
 # Deploying our first ModRule
 
-Once KubeMod is installed, you can deploy ModRules which intercept the creation and update of specific resources and perform modifications on them.
+Once KubeMod is installed, you can deploy ModRules to intercept the creation and update of specific resources and perform modifications on them.
 
 For example, here's a `ModRule` which enforces a `securityContext` and adds annotation `my-annotation` to any `Deployment` resource whose `app` label equals `nginx` and includes a container of any version of nginx that matches `1.14.*`.
 
@@ -53,7 +53,7 @@ Save the above `ModRule` to file `my-modrule.yaml` and deploy it to the default 
 kubectl apply -f my-modrule.yaml
 ```
 
-After the `ModRule` is created, the creation of any nginx Kubernetes `Deployment` resource in the same namespace will be intercepted by the KubeMod operator and if the `Deployment` resource matches all the queries in the ModRule's `match` section, the resource will be patched with the `patch` operations **before** it is actually deployed to Kubernetes.
+After the `ModRule` is created, the creation of any nginx Kubernetes `Deployment` resource in the same namespace will be intercepted by KubeMod, and if the `Deployment` resource matches the ModRule's `match` section, the resource will be patched with the `patch` operations **before** it is actually deployed to Kubernetes.
 
 ## List deployed ModRules
 

@@ -2,7 +2,7 @@
 
 Section `match` of a `ModRule` is an array of individual criteria items.
 
-When a new object is deployed to Kubernetes, KubeMod intercepts the operation and attempts to match the object's definition against all `ModRules` deployed to the namespace where the object is being deployed.
+When a new object is deployed to Kubernetes, or an existing one is updated, KubeMod intercepts the operation and attempts to match the object's definition against all `ModRules` deployed to the namespace where the object is being deployed.
 
 A `ModRule` is considered to have a match with the Kubernetes object definition when all criteria items in its `match` section yield a positive match.
 
@@ -10,7 +10,7 @@ A `ModRule` is considered to have a match with the Kubernetes object definition 
 
 A criteria item contains a required `select` expression and optional `matchValue`, `matchValues`, `matchRegex` and `negate` fields.
 
-For example, the following `match` section has two criteria items. The `ModRule` matches all resources whose `kind` is equal to `Deployment` **and** have a container name that's either `container-1` or `container-2` .
+For example, the following `match` section has two criteria items. This `ModRule` will match all resources whose `kind` is equal to `Deployment` **and** have a container name that's either `container-1` or `container-2` .
 
 ```yaml
 ...
@@ -24,14 +24,14 @@ For example, the following `match` section has two criteria items. The `ModRule`
         - 'container-2'
 ```
 
-A criteria item is considered a positive match when its `select` expression yields one or more values and one of the following is true:
+A criteria item is considered a positive match when its `select` expression yields one or more values **and** one of the following is true:
 
 * No `matchValue`, `matchValues` or `matchRegex` are specified for the criteria item.
 * `matchValue` is specified and one or more of the values resulting from `select` exactly matches that value.
 * `matchValues` is specified and one or more of the values resulting from `select` exactly matches one or more of the values in `matchValues`.
 * `matchRegex` is specified and one or more of the values resulting from `select` matches that regular expression.
 
-The result of a criteria item can be inverted by setting its `negate` to `true`.
+The result of a criteria item can be inverted by setting its `negate` field to `true`.
 
 A criteria item whose `select` expression yields no results is considered non-matching unless it is `negated`.
 
@@ -75,7 +75,7 @@ The expression `[? @.containerPort == 8080]` filters the result of the `select` 
 
 The filter expression could be any JavaScript boolean expression.
 
-The special character `@` represents the current object the filter is iterating over. In the above filter expression, that is the `port` object.
+The special character `@` represents the current object the filter is iterating over. In the above filter expression, that is the current element of the `ports` array.
 
 ### `matchValue` \(string: optional\)
 
@@ -85,7 +85,7 @@ The match performed by `matchValue` is case sensitive. If you need case insensit
 
 ### `matchValues` \(array of strings: optional\)
 
-Field `matchValues` is an array of match values which are tested against the results of `select`. If any of the items returned by `select` match any of the `matchValues` items, the match criteria is considered a positive match.
+Field `matchValues` is an array of strings which are tested against the results of `select`. If any of the items returned by `select` match any of the `matchValues`, the match criteria is considered a positive match.
 
 This match is case sensitive. If you need case insensitive matches, use `matchRegex`.
 

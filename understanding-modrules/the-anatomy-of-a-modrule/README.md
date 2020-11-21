@@ -1,6 +1,6 @@
 # The anatomy of a ModRule
 
-A `ModRule` has a `type`, a required `match` section and an optional `patch` section.
+A `ModRule` has a `type`, a `match` section, and a `patch` section.
 
 ```yaml
 apiVersion: api.kubemod.io/v1beta1

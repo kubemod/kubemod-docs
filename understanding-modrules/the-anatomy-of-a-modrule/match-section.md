@@ -25,7 +25,7 @@ The `ModRule`  matches all resources whose `kind` is equal to `Deployment` **and
         - 'container-2'
 ```
 
-A criteria item is considered positive when its `select` expression yields one or more values and one of the following is true:
+A criteria item is considered a positive match when its `select` expression yields one or more values and one of the following is true:
 
 * No `matchValue`, `matchValues` or `matchRegex` are specified for the criteria item.
 * `matchValue` is specified and one or more of the values resulting from `select` exactly matches that value.

@@ -140,7 +140,7 @@ For the above `select` and `path` examples executed against our sample `Deployme
 * `/spec/template/spec/containers/1/ports/1/containerPort`
 * `/spec/template/spec/containers/3/ports/0/containerPort`
 
-Combining `select` expressions with `path`s  with index placeholders gives us the ability to perform sophisticated targeted resource modifications.
+Combining `select` expressions with `path`s with index placeholders gives us the ability to perform sophisticated targeted resource modifications.
 
 If `select` is not specified, `path` is rendered as-is and is not subject to index placeholder interpolation.
 
@@ -184,7 +184,7 @@ String representation of a boolean:
 value: '"false"'
 ```
 
-**YAML object** (note `|-` which makes `value` a multi-line string):
+**YAML object** \(note `|-` which makes `value` a multi-line string\):
 
 ```yaml
 value: |-
@@ -223,4 +223,5 @@ value: |-
 ...
 ```
 
-See full example of the above ModRule here.
+See full example of the above ModRule [here](../common-use-cases/sidecar-injection.md).
+

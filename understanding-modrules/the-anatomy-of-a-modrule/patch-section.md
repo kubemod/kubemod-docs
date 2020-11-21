@@ -57,7 +57,7 @@ For more information about `select` expressions, see [Match item select expressi
 
 When `select` is used in a patch operation, the patch is executed once for each item yielded by `select`.
 
-If the `select` item uses JSONPatch wildcards \(such as `..` or `[*]`\) and/or [filter expressions](https://github.com/kubemod/kubemod-docs/tree/005bd9b919bd7c411834e3fbb8302193bfaaecb6/understanding-modrules/match-section.md#select-filtes), KubeMod captures the zero-based index of each wildcard/filter result and makes it available for use in the `path` expression.
+If the `select` item uses JSONPatch wildcards \(such as `..` or `[*]`\) and/or [filter expressions](match-section.md#select-filtes), KubeMod captures the zero-based index of each wildcard/filter result and makes it available for use in the `path` expression.
 
 Let's consider the following example:
 

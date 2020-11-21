@@ -52,7 +52,7 @@ When a `select` expression is evaluated against a Kubernetes object definition, 
 
 {% hint style="info" %}
 For more information about `select` expressions, see [Match item select expressions](../match-section.md#select-string-required).
-{% endhint }
+{% endhint %}
 
 When `select` is used in a patch operation, the patch is executed once for each item yielded by `select`.
 

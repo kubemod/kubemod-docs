@@ -10,8 +10,7 @@ A `ModRule` is considered to have a match with the Kubernetes object definition 
 
 A criteria item contains a required `select` expression and optional `matchValue`, `matchValues`, `matchRegex` and `negate` fields.
 
-For example, the following `match` section has two criteria items.
-The `ModRule`  matches all resources whose `kind` is equal to `Deployment` **and** have a container name that's either `container-1` or `container-2` .
+For example, the following `match` section has two criteria items. The `ModRule` matches all resources whose `kind` is equal to `Deployment` **and** have a container name that's either `container-1` or `container-2` .
 
 ```yaml
 ...
@@ -36,7 +35,7 @@ The result of a criteria item can be inverted by setting its `negate` to `true`.
 
 A criteria item whose `select` expression yields no results is considered non-matching unless it is `negated`.
 
-### `select` (string : required)
+### `select` \(string : required\)
 
 The `select` field of a criteria item is a [JSONPath](https://goessner.net/articles/JsonPath/) expression.
 
@@ -57,6 +56,7 @@ Here's another example:
 ```javascript
 $.spec.template.spec.containers[*].ports[*].containerPort
 ```
+
 This expression will yield a list of all `containerPort` values for all ports and all containers. The values in the list will be the string representation of those port numbers.
 
 #### `select` filters
@@ -77,22 +77,23 @@ The filter expression could be any JavaScript boolean expression.
 
 The special character `@` represents the current object the filter is iterating over. In the above filter expression, that is the `port` object.
 
-### `matchValue` (string: optional)
+### `matchValue` \(string: optional\)
 
 When present, the value of field `matchValue` is matched against the results of `select`. If any of the items returned by `select` match `matchValue`, the match criteria is considered a positive match.
 
 The match performed by `matchValue` is case sensitive. If you need case insensitive matches, use `matchRegex`.
 
-### `matchValues` (array of strings: optional)
+### `matchValues` \(array of strings: optional\)
 
 Field `matchValues` is an array of match values which are tested against the results of `select`. If any of the items returned by `select` match any of the `matchValues` items, the match criteria is considered a positive match.
 
 This match is case sensitive. If you need case insensitive matches, use `matchRegex`.
 
-### `matchRegex` (string: optional)
+### `matchRegex` \(string: optional\)
 
 Field `matchRegex` is a regular expression matched against the results of `select`. If any of the items returned by `select` match `matchRegex`, the match criteria is considered a positive match.
 
-### `negate` (boolean: optional)
+### `negate` \(boolean: optional\)
 
 Field `negate` can be used to flip the outcome of the criteria item match. Its default value is `false`.
+

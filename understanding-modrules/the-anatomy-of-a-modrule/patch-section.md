@@ -37,26 +37,27 @@ The second one switches the `containerPort` of all `nginx` containers present in
 
 Following is a break down of each field of a patch operation.
 
-### `op` (string: required)
+### `op` \(string: required\)
 
 Field `op` indicates the type of patch operation to be performed against the target object. It can be one of the following:
-  * `replace` - this type of operation replaces the value of element represented by `path` with the value of field `value`. If `path` points to a non-existent element, the operation fails.
-  * `add` - this type of operation adds the element represented by `path` with the value of field `value`. If the element already exists, `add` behaves like `replace`.
-  * `remove` - this type of operation removes the element represented by `path`. If `path` points to a non-existent element, the operation is ignored.
 
-### `select` (string: optional) and `path` (string: required)
+* `replace` - this type of operation replaces the value of element represented by `path` with the value of field `value`. If `path` points to a non-existent element, the operation fails.
+* `add` - this type of operation adds the element represented by `path` with the value of field `value`. If the element already exists, `add` behaves like `replace`.
+* `remove` - this type of operation removes the element represented by `path`. If `path` points to a non-existent element, the operation is ignored.
+
+### `select` \(string: optional\) and `path` \(string: required\)
 
 The `select` field of a patch item is a [JSONPath](https://goessner.net/articles/JsonPath/) expression.
 
 When a `select` expression is evaluated against a Kubernetes object definition, it yields zero or more values.
 
 {% hint style="info" %}
-For more information about `select` expressions, see [Match item select expressions](../match-section.md#select-string-required).
+For more information about `select` expressions, see [Match item select expressions](match-section.md#select-string-required).
 {% endhint %}
 
 When `select` is used in a patch operation, the patch is executed once for each item yielded by `select`.
 
-If the `select` item uses JSONPatch wildcards (such as `..` or `[*]`) and/or [filter expressions](../match-section.md#select-filtes), KubeMod captures the zero-based index of each wildcard/filter result and makes it available for use in the `path` expression.
+If the `select` item uses JSONPatch wildcards \(such as `..` or `[*]`\) and/or [filter expressions](https://github.com/kubemod/kubemod-docs/tree/005bd9b919bd7c411834e3fbb8302193bfaaecb6/understanding-modrules/match-section.md#select-filtes), KubeMod captures the zero-based index of each wildcard/filter result and makes it available for use in the `path` expression.
 
 Let's consider the following example:
 
@@ -65,7 +66,8 @@ select: $.spec.template.spec.containers[*].ports[? @.containerPort == 80]
 path: /spec/template/spec/containers/#0/ports/#1/containerPort
 value: '8080'
 ```
-The `select` expression includes a wildcard to loop over all containers (`containers[*]`), and then a filter (`ports[? @.containerPort == 80]`) to select only the ports whose `containerPort` is equal to `80`.
+
+The `select` expression includes a wildcard to loop over all containers \(`containers[*]`\), and then a filter \(`ports[? @.containerPort == 80]`\) to select only the ports whose `containerPort` is equal to `80`.
 
 If we evaluate this against a `Deployment` with the following four containers and ports...
 
@@ -96,16 +98,18 @@ If we evaluate this against a `Deployment` with the following four containers an
 ```
 
 ... the `select` expression will yield the following two items:
-  * Item 1: The second port of the second container
-  * Item 2: The first port of the fourth container
+
+* Item 1: The second port of the second container
+* Item 2: The first port of the fourth container
 
 The zero-based wildcard/filter indexes captured by KubeMod for this `select` will be as follows:
-  * Item 1:
-    - container index: 1
-    - port index: 1
-  * Item 2:
-    - container index: 3
-    - port index: 0
+
+* Item 1:
+  * container index: 1
+  * port index: 1
+* Item 2:
+  * container index: 3
+  * port index: 0
 
 The indexes above can be used when constructing the `path` of the patch operation.
 
@@ -123,14 +127,14 @@ When KubeMod performs patch operations, it constructs the `path` by replacing th
 
 For the above `select` and `path` examples executed against our sample `Deployment`, KubeMod will generate two patch operations which will target the following paths:
 
-- `/spec/template/spec/containers/1/ports/1/containerPort`
-- `/spec/template/spec/containers/3/ports/0/containerPort`
+* `/spec/template/spec/containers/1/ports/1/containerPort`
+* `/spec/template/spec/containers/3/ports/0/containerPort`
 
 Combining `path` expressions with index placeholders gives us the ability to perform sophisticated targeted resource modifications.
 
 If `select` is not specified, `path` is rendered as-is and is not subject to index placeholder interpolation.
 
-### value (string)
+### value \(string\)
 
 `value` is required for `add` and `replace` operations.
 
@@ -138,7 +142,7 @@ If `select` is not specified, `path` is rendered as-is and is not subject to ind
 
 Here are a few examples:
 
-Number (note the quotes - `value` itself is a string, but its "value" evaluates to a `YAML` number):
+Number \(note the quotes - `value` itself is a string, but its "value" evaluates to a `YAML` number\):
 
 ```yaml
 value: '8080'
@@ -156,7 +160,7 @@ or
 value: 'hello'
 ```
 
-String representation of a number (note the double-quotes):
+String representation of a number \(note the double-quotes\):
 
 ```yaml
 value: '"8080"'
@@ -189,14 +193,14 @@ value: |-
 
 #### Golang Template
 
-When `value` contains ``{{ ... }}``, it is evaluated as a [Golang template](https://golang.org/pkg/text/template/).
+When `value` contains `{{ ... }}`, it is evaluated as a [Golang template](https://golang.org/pkg/text/template/).
 
 The following intrinsic items accessible through the template's context:
 
-* ``.Target`` — the original resource object being patched.
-* ``.Namespace`` — the namespace of the resource object being patched.
+* `.Target` — the original resource object being patched.
+* `.Namespace` — the namespace of the resource object being patched.
 
-For example, the following excerpt of a Jaeger side-car injection `ModRule` includes a `value` which uses ``{{ .Target.metadata.name }}`` to access the name of the ``Deployment`` being patched:
+For example, the following excerpt of a Jaeger side-car injection `ModRule` includes a `value` which uses `{{ .Target.metadata.name }}` to access the name of the `Deployment` being patched:
 
 ```yaml
 ...
@@ -212,3 +216,4 @@ value: |-
     protocol: UDP
 ...
 ```
+

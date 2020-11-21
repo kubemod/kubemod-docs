@@ -24,3 +24,4 @@ The `type` of a `ModRule` can be one of the following:
 Section [`match`](match-section.md) is an array of individual criteria items used to determine if the `ModRule` applies to a Kubernetes object.
 
 Section [`patch`](patch-section.md) is an array of patch operations.
+

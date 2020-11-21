@@ -27,7 +27,7 @@ spec:
 
     # ... but has no explicit runAsNonRoot security contex.
     # Note: "negate: true" flips the meaning of the match.
-    - select: "$.spec.template.spec.securityContext.runAsNonRoot == true" 
+    - select: '$.spec.template.spec.securityContext.runAsNonRoot == true'
       negate: true
 
 

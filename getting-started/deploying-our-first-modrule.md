@@ -57,7 +57,7 @@ Save the above `ModRule` to file `my-modrule.yaml` and deploy it to the default 
 kubectl apply -f my-modrule.yaml
 ```
 
-After the `ModRule` is created, the creation of any nginx Kubernetes `Deployment` resource in the same namespace will be intercepted by KubeMod, and if the `Deployment` resource matches the ModRule's `match` section, the resource will be patched with the `patch` operations **before** it is actually deployed to Kubernetes.
+After the `ModRule` is created, the creation of any nginx Kubernetes `Deployment` resource in the same namespace will be intercepted by KubeMod, and if the `Deployment` resource matches the ModRule's `match` section, the resource will be patched with the collection of `patch` operations.
 
 ## List deployed ModRules
 

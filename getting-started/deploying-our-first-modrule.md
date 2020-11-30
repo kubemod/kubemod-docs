@@ -2,7 +2,11 @@
 
 Once KubeMod is installed, you can deploy ModRules to intercept the creation and update of specific resources and perform modifications on them.
 
-For example, here's a `ModRule` which enforces a `securityContext` and adds annotation `my-annotation` to any `Deployment` resource whose `app` label equals `nginx` and includes a container of any version of nginx that matches `1.14.*`.
+For example, here's a ModRule which intercepts the creation of Deployment resources whose `app` labels equal `nginx` and include at least one container of `nginx` version `1.14.*`.
+
+The ModRule patches the matching Deployments on-the-fly to enforce a specific `securityContext` and add annotation `my-annotation`.
+
+Since KubeMod intercepts and patches resources **before** they are deployed to Kubernetes, we are able to patch read-only fields such as `securityContext` without the need to drop and recreate existing resources.
 
 ```yaml
 apiVersion: api.kubemod.io/v1beta1
@@ -25,7 +29,7 @@ spec:
     - select: '$.spec.template.spec.containers[*].image'
       matchRegex: 'nginx:1\.14\..*'
 
-    # ... but has no explicit runAsNonRoot security contex.
+    # ... but has no explicit runAsNonRoot security context.
     # Note: "negate: true" flips the meaning of the match.
     - select: '$.spec.template.spec.securityContext.runAsNonRoot == true'
       negate: true
